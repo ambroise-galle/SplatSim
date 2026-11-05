@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Course en forêt</title>
+  <style>
+    :root {
+      --panel: rgba(12, 14, 18, 0.62);
+      --text: #f2f4f6;
+      --muted: #a8b2bc;
+      --accent: #ffcf3a;
+      --hot: #ff5a3c;
+      --ok: #4fe08a;
+    }
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #9fb3c8; color: var(--text);
+      font: 14px/1.3 system-ui, -apple-system, sans-serif; }
+    canvas#app { display: block; width: 100%; height: 100%; outline: none; }
+    .panel { position: absolute; background: var(--panel); border-radius: 10px; padding: 10px 14px; pointer-events: none;
+      backdrop-filter: blur(4px); }
+    .panel.cache { display: none !important; }
+    #chrono { top: 14px; left: 50%; transform: translateX(-50%); text-align: center; min-width: 210px; }
+    #temps { font: 700 34px/1 ui-monospace, SFMono-Regular, monospace; font-variant-numeric: tabular-nums; letter-spacing: 1px; }
+    #chrono .ligne { color: var(--muted); font-size: 13px; margin-top: 4px; font-variant-numeric: tabular-nums; }
+    #chrono .ligne b { color: var(--text); font-weight: 600; }
+    #compteur { right: 18px; bottom: 18px; text-align: right; min-width: 150px; }
+    #vitesse { font: 800 56px/0.95 ui-monospace, SFMono-Regular, monospace; font-variant-numeric: tabular-nums; }
+    #compteur small { color: var(--muted); font-size: 14px; }
+    #sol { color: var(--muted); font-size: 12px; margin-top: 4px; }
+    #derive { top: 96px; left: 50%; transform: translateX(-50%); display: none; text-align: center;
+      background: rgba(255, 90, 60, 0.82); font-weight: 800; font-size: 20px; letter-spacing: 2px; }
+    #derive small { display: block; font-size: 12px; letter-spacing: 0; font-weight: 600; }
+    #fleche { top: 82px; right: 22px; width: 64px; height: 64px; padding: 6px; border-radius: 50%; }
+    #fleche svg { width: 100%; height: 100%; transition: transform 0.08s linear; }
+    #carte { top: 14px; right: 14px; padding: 6px; display: none; }
+    #carte canvas { display: block; width: 190px; height: 190px; }
+    #grand { top: 42%; left: 50%; transform: translate(-50%, -50%); display: none; text-align: center;
+      font: 900 96px/1 system-ui, sans-serif; background: none; backdrop-filter: none;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.55); }
+    #grand small { display: block; font: 600 20px/1.4 system-ui, sans-serif; margin-top: 8px; }
+    #aide { left: 14px; bottom: 14px; color: var(--muted); max-width: 520px; font-size: 13px; line-height: 1.6; }
+    #aide kbd { background: rgba(255, 255, 255, 0.16); color: var(--text); border-radius: 4px; padding: 1px 6px;
+      font: 600 12px ui-monospace, monospace; }
+    #etat { top: 14px; left: 14px; font-size: 12px; color: var(--muted); }
+    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; background: var(--hot); }
+    .dot.on { background: var(--ok); }
+    #toast { bottom: 18px; left: 50%; transform: translateX(-50%); display: none; font-weight: 700; }
+    @media (max-width: 760px) {
+      #temps { font-size: 26px; }
+      #vitesse { font-size: 40px; }
+      #aide { display: none; }
+      #grand { font-size: 64px; }
+      #fleche { top: 70px; width: 48px; height: 48px; }
+    }
+  </style>
+  <script type="importmap">
+    { "imports": { "playcanvas": "/vendor/playcanvas/build/playcanvas.mjs" } }
+  </script>
+</head>
+<body>
+  <canvas id="app" tabindex="0"></canvas>
+  <div id="etat" class="panel"><span id="dot" class="dot"></span><span id="conn">connexion…</span> · <span id="fps">–</span></div>
+  <div id="chrono" class="panel">
+    <div id="temps">0:00.00</div>
+    <div class="ligne">porte <b id="porte">0/0</b> · record <b id="record">–</b></div>
+    <div class="ligne">dérive <b id="points">0</b> pts</div>
+  </div>
+  <div id="derive" class="panel">DÉRIVE<small id="combo">+0</small></div>
+  <div id="fleche" class="panel"><svg viewBox="0 0 100 100"><path d="M50 8 L82 70 L50 56 L18 70 Z" fill="#ffcf3a"/></svg></div>
+  <div id="carte" class="panel"><canvas id="mini" width="380" height="380"></canvas></div>
+  <div id="compteur" class="panel"><div><span id="vitesse">0</span> <small>km/h</small></div><div id="sol">–</div></div>
+  <div id="grand" class="panel"></div>
+  <div id="toast" class="panel"></div>
+  <div id="aide" class="panel">
+    <kbd>Z</kbd><kbd>Q</kbd><kbd>S</kbd><kbd>D</kbd> ou flèches : conduire · <kbd>Espace</kbd> frein à main ·
+    <kbd>Maj</kbd> turbo (antipatinage relâché : ça glisse) · <kbd>C</kbd> caméra 1ʳᵉ / 3ᵉ personne ·
+    <kbd>R</kbd> replacer à la dernière porte · <kbd>Entrée</kbd> recommencer · <kbd>M</kbd> carte · <kbd>H</kbd> aide
+  </div>
+  <script type="module" src="/app/course.js"></script>
+</body>
+</html>

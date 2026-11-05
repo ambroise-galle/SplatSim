@@ -1,0 +1,11 @@
+{
+  "name": "simrobot-viewer",
+  "private": true,
+  "description": "Vue 3e personne du simulateur robotique (moteur PlayCanvas) + outils splat-transform",
+  "dependencies": {
+    "playcanvas": "2.23.1"
+  },
+  "devDependencies": {
+    "@playcanvas/splat-transform": "3.9.0"
+  }
+}

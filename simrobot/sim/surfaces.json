@@ -1,0 +1,63 @@
+{
+  "_note": "Adhérence pneu-sol (coefficient de frottement) et résistance au roulement (sans dimension) par classe ADE20K du sol (terrain_etiquettes.npz, cf. terrain_labels.py). Ordres de grandeur classiques des tables pneu-sol (ex. Wong, Theory of Ground Vehicles : chemin de terre sec 0,68 / mouillé 0,55 ; roulement sol moyennement dur ~0,08, béton ~0,015, sable 0,1–0,3), pris côté humide (HÖB-1 : novembre). NON MESURÉS sur GrandTour (l'ANYmal marche sur des pattes) : à régler.",
+  "defaut": {
+    "adherence": 0.55,
+    "roulement": 0.07
+  },
+  "classes": {
+    "13": {
+      "nom": "earth (sol forestier : terre, litière, mousse)",
+      "adherence": 0.55,
+      "roulement": 0.08
+    },
+    "52": {
+      "nom": "path (sentier tassé)",
+      "adherence": 0.6,
+      "roulement": 0.06
+    },
+    "6": {
+      "nom": "road (chemin forestier empierré)",
+      "adherence": 0.65,
+      "roulement": 0.03
+    },
+    "91": {
+      "nom": "dirt track",
+      "adherence": 0.6,
+      "roulement": 0.06
+    },
+    "17": {
+      "nom": "plant (sous-bois au sol)",
+      "adherence": 0.45,
+      "roulement": 0.1
+    },
+    "9": {
+      "nom": "grass",
+      "adherence": 0.45,
+      "roulement": 0.08
+    },
+    "21": {
+      "nom": "water (flaque, boue)",
+      "adherence": 0.35,
+      "roulement": 0.15
+    },
+    "34": {
+      "nom": "rock (roche humide)",
+      "adherence": 0.6,
+      "roulement": 0.02
+    },
+    "4": {
+      "nom": "tree (racines, bois mort au sol)",
+      "adherence": 0.35,
+      "roulement": 0.04
+    }
+  },
+  "_buisson": "Freinage horizontal du châssis dans la végétation : F = (F0 + F1·|v|) · s, s = freinage relatif de la cellule (terrain_etiquettes.npz : végétation en nappe veg_s et obstacles bas typés végétation obs_s, ~ μ_LiDAR / 0,55), moyenné sur 5 points (centre, roues) ; montée progressive sous 5 cm/s. Surtout proportionnel à la vitesse : la végétation ralentit sans bloquer. Traction du robot ~330 N sur terre (61 kg × 0,55 × g) : vitesse d'équilibre ≈ (310/s − F0)/F1, soit ~1,8 m/s pour s = 1, ~1 m/s pour s = 1,65, ~0,4 m/s pour s = 3. Valeurs non mesurées.",
+  "buisson": {
+    "F0_N": 40.0,
+    "F1_N_par_m_s": 150.0,
+    "mu_ref": 0.55,
+    "s_min": 0.3,
+    "s_max": 3.0
+  },
+  "terrain_friction": 0.01
+}

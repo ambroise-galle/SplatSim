@@ -1,0 +1,29 @@
+# simulator (server, physics, simulated LiDAR)
+numpy
+scipy
+mujoco>=3.3
+aiohttp
+numba
+pillow
+pyyaml
+
+# scene building and pipeline (CUDA GPU)
+torch
+gsplat
+transformers
+opencv-python
+matplotlib
+scikit-learn
+torchmetrics
+numcodecs
+huggingface_hub
+datasets
+
+# pipeline only
+rosbags
+evo
+pypcd4
+pye57
+lz4
+requests
+modal

@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+.ruff_cache/
+
+# data and outputs (scenes, maps, checkpoints, renders)
+data_local/
+out/
+logs/
+*.npz
+*.npy
+*.ply
+*.splat
+*.pt
+*.ckpt
+*.mp4
+
+# viewer dependencies
+simrobot/viewer/node_modules/
